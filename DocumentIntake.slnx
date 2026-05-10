@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="src/DocumentIntake/DocumentIntake.csproj" />
+  <Project Path="tests/DocumentIntakeTests/DocumentIntakeTests.csproj" />
+</Solution>
