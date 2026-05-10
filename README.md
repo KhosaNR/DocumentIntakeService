@@ -11,5 +11,5 @@ The easiest way to run the service is using Docker.
 1. Open your terminal in the root directory of the repository.
 2. Build and start the container:
    ```bash
-   docker build -t document-intake-service .
-   docker run -p 8080:8080 document-intake-service
+   docker build -t document-intake .
+   docker run -p 8080:8080 document-intake
