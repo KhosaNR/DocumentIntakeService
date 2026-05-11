@@ -2,6 +2,7 @@
 using DocumentIntake.Domain.Interfaces;
 using DocumentIntake.Domain.Entities;
 using DocumentIntake.Domain.Messages;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DocumentIntake.Api.Endpoints;
 
@@ -21,19 +22,16 @@ public static class DocumentEndpoints
         /// <response code="200">Returns the existing ID if a duplicate submission is detected.</response>
         /// <response code="400">If required fields are missing.</response>
         app.MapPost("/api/documents", async (
-            HttpContext context,
+            [FromForm] string provider,
+            [FromForm] string sourceDocumentId,
+            [FromForm] string title,
+            IFormFile file,
             IDocumentRepository repo,
             IStorageService storage,
             IMessageQueue queue,
             ILoggerFactory loggerFactory) =>
         {
             var logger = loggerFactory.CreateLogger("DocumentEndpoints");
-            var form = await context.Request.ReadFormAsync();
-            var file = form.Files.GetFile("file");
-
-            var provider = form["provider"].ToString();
-            var sourceDocumentId = form["sourceDocumentId"].ToString();
-            var title = form["title"].ToString();
 
             if (file == null || string.IsNullOrEmpty(provider) || string.IsNullOrEmpty(sourceDocumentId))
             {
